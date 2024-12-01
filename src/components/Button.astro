@@ -1,0 +1,45 @@
+---
+import { cva } from "class-variance-authority";
+import { cn } from "@/utils";
+
+interface ButtonProps {
+  mode?: "light" | "dark";
+  size?: "small" | "medium" | "large";
+  class?: string;
+}
+
+const buttonVariants = cva(
+  "relative flex items-center justify-center overflow-hidden font-medium shadow-2xl transition-all duration-300 before:absolute before:inset-0 before:border-0 before:duration-100 before:ease-linear hover:before:border-[25px] rounded-lg",
+  {
+    variants: {
+      mode: {
+        light:
+          "bg-mint-200 text-black before:border-black hover:bg-black hover:text-mint-200 hover:shadow-mint-200",
+        dark: "text-white bg-black before:border-white hover:bg-white hover:text-black hover:shadow-black/40",
+      },
+      size: {
+        small: "h-[40px] w-32 text-sm",
+        medium: "h-[50px] w-40 text-base",
+        large: "h-[60px] w-48 text-lg",
+      },
+    },
+    defaultVariants: {
+      mode: "dark",
+      size: "medium",
+    },
+  }
+);
+
+const {
+  mode = "dark",
+  size = "medium",
+  class: customClass = "",
+} = Astro.props as ButtonProps;
+const buttonClass = cn(buttonVariants({ mode, size }), customClass);
+---
+
+<button class={buttonClass}>
+  <span class="relative z-10">
+    <slot> Button </slot>
+  </span>
+</button>

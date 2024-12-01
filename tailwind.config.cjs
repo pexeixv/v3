@@ -10,6 +10,7 @@ module.exports = {
       },
       colors: {
         mint: {
+          DEFAULT: "#5CEBDF",
           50: "#EDFDFB",
           100: "#DFFBF9",
           200: "#BFF7F3",
@@ -20,7 +21,7 @@ module.exports = {
           700: "#15ADA0",
           800: "#0F766D",
           900: "#073B37",
-          950: "#020B0D",
+          950: "#0E1E25",
         },
       },
     },
