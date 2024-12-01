@@ -2,20 +2,42 @@
 import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import "@fontsource-variable/outfit";
+import BaseHead from "@/components/BaseHead.astro";
 
 interface Props {
   title?: string;
+  description?: string;
+  url?: string;
+  image?: string;
+  type?: string;
 }
 
-const { title = "Gavin Pereira" } = Astro.props as Props;
+const {
+  title = "Gavin Pereira",
+  description = "Gavin Pereira is a Graphic Designer & Frontend Developer from Goa.",
+  url = "https://gavinpereira.in",
+  image = "https://gavinpereira.in/img/preview.jpg",
+  type = "website",
+} = Astro.props as Props;
+
+const formattedTitle =
+  title === "Gavin Pereira"
+    ? title
+    : title
+      ? `${title} &bull; Gavin Pereira`
+      : "Gavin Pereira";
 ---
 
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{title}</title>
+    <BaseHead
+      title={formattedTitle}
+      description={description}
+      url={url}
+      image={image}
+      type={type}
+    />
   </head>
   <body class="min-h-screen flex flex-col font-outfit font-light">
     <Header />
