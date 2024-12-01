@@ -1,0 +1,120 @@
+---
+import BaseLayout from "@/components/BaseLayout.astro";
+import { slugify } from "@/utils.ts";
+import Button from "@/components/Button.astro";
+
+const techologies = [
+  "HTML5",
+  "CSS3",
+  "JavaScript",
+  "Sass",
+  "Tailwind CSS",
+  "11ty",
+  "Git",
+  "Adobe Illustrator",
+  "Photoshop",
+  "After Effects",
+  "Figma",
+  "GSAP",
+  "Python",
+  "Contentful CMS",
+  "Next JS",
+  "Sanity CMS",
+  "Astro.build",
+] as string[];
+---
+
+<BaseLayout title="About">
+  <h1 class="sr-only">About page</h1>
+
+  <section id="about-me">
+    <div
+      class="container mx-auto px-5 py-10 lg:py-16 flex flex-col items-center"
+    >
+      <h2 class="text-4xl font-extrabold lg:text-5xl text-center text-mint-200">
+        About me
+      </h2>
+      <div class="space-y-3 mt-12 text-justify max-w-3xl">
+        <p>
+          Hello! I'm Gavin Pereira, a minimalist graphic designer with a passion
+          for creating simple yet powerful designs. With over four years of
+          experience, I've had the privilege of working on a variety of
+          projects, ranging from graphic design and motion graphics to website
+          design and development. Since I got my first laptop in 2017, I've been
+          honing my skills in typography, color theory, layout, and
+          illustration.
+        </p>
+
+        <p>
+          I believe in the power of design to tell stories, evoke emotions, and
+          solve problems. My approach is always driven by clarity, creativity,
+          and a deep understanding of design fundamentals. I love working with
+          colors and type, and I'm constantly exploring new techniques and tools
+          to enhance my craft.
+        </p>
+        <p>
+          As I continue to learn and grow, I'm always excited about new
+          challenges and the opportunity to collaborate with others. If you're
+          looking for someone who is not only skilled but also passionate about
+          bringing your vision to life, let's chat!
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section id="technologies">
+    <div
+      class="container mx-auto px-5 py-10 lg:py-16 flex flex-col items-center"
+    >
+      <h2 class="text-4xl font-extrabold lg:text-5xl text-center text-mint-200">
+        Tech Knowledge
+      </h2>
+      <div class="mt-12 flex flex-wrap gap-8 max-w-xl mx-auto justify-center">
+        {
+          techologies.map((t) => (
+            <img
+              src={`/tech/${slugify(t)}.svg`}
+              alt={t}
+              class="h-16 grayscale hover:grayscale-0 transition-all duration-300 cursor-pointer"
+              data-name={t}
+            />
+          ))
+        }
+      </div>
+      <div class="text-center mt-8">
+        <p id="technology">&nbsp;</p>
+      </div>
+    </div>
+  </section>
+
+  <script>
+    const namePlaceholder = document.querySelector(
+      "#technology"
+    ) as HTMLParagraphElement;
+    const logos = document.querySelectorAll(
+      "#technologies img"
+    ) as NodeListOf<HTMLImageElement>;
+    logos.forEach((logo) => {
+      logo.addEventListener(
+        "mouseenter",
+        () => (namePlaceholder.innerText = logo?.dataset?.name || "&nbsp;")
+      );
+      logo.addEventListener(
+        "mouseleave",
+        () => (namePlaceholder.innerHTML = "&nbsp;")
+      );
+    });
+  </script>
+
+  <section class="py-10 lg:py-16 px-4" id="cta-banner">
+    <div
+      class="container mx-auto p-8 lg:p-12 justify-between gap-4 flex max-lg:flex-col items-center bg-mint-200 text-black max-w-6xl rounded-lg max-lg:text-center"
+    >
+      <div>
+        <h3>Can't find what you're looking for?</h3>
+        <p>I always look forward to learning new technologies.</p>
+      </div>
+      <Button mode="dark">Get In Touch</Button>
+    </div>
+  </section>
+</BaseLayout>
