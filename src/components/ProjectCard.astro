@@ -1,0 +1,39 @@
+---
+import type { Project } from "@/interfaces";
+import { Image } from "astro:assets";
+import { ExternalLinkIcon } from "lucide-react";
+const { title, description, image, url, tags, category } =
+  Astro.props as Project;
+const assetUrl = import.meta.env.ASTRO_HYGRAPH_ASSETS;
+---
+
+<div>
+  {
+    image && image.mimeType === "image/jpeg" ? (
+      <Image
+        src={`${assetUrl}/resize=width:380/${image.handle}`}
+        alt=""
+        height={270}
+        width={345}
+        class="w-full"
+      />
+    ) : (
+      <video controls>
+        <source src={image.url} />
+      </video>
+    )
+  }
+  {title && <h3>{title}</h3>}
+  {description && <p>{description}</p>}
+  {tags && <span class="text-sm text-neutral-400">{tags}</span>}
+  {
+    url && (
+      <div class="flex items-center gap-1">
+        <a href={`//${url}`} target="_blank" class="peer">
+          {url}
+        </a>
+        <ExternalLinkIcon className="size-3.5 peer-hover:opacity-100 opacity-0 pointer-events-none transition-opacity duration-300" />
+      </div>
+    )
+  }
+</div>

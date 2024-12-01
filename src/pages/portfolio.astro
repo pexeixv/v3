@@ -1,0 +1,38 @@
+---
+import BaseLayout from "@/components/BaseLayout.astro";
+import ProjectCard from "@/components/ProjectCard.astro";
+import hygraph from "@/hygraph.ts";
+import type { Project, ProjectsResponse } from "@/interfaces.ts";
+const jamstack = (await hygraph("jamstack", "projects")) as ProjectsResponse;
+const frontend = (await hygraph("frontend", "projects")) as ProjectsResponse;
+const motion = (await hygraph("motion", "projects")) as ProjectsResponse;
+const logo = (await hygraph("logo", "projects")) as ProjectsResponse;
+const graphic = (await hygraph("graphic", "projects")) as ProjectsResponse;
+const categories = [
+  { title: "Jamstack Projects", data: jamstack },
+  { title: "Frontend Projects", data: frontend },
+  { title: "Motion Design Projects", data: motion },
+  { title: "Logo Design Projects", data: logo },
+  { title: "Graphic Design Projects", data: graphic },
+];
+---
+
+<BaseLayout title="Portfolio">
+  <h1 class="sr-only">Portfolio</h1>
+  {
+    categories.map((category) => (
+      <section id={category.title}>
+        <div class="container mx-auto px-5 py-10 lg:py-16 flex flex-col items-center max-w-7xl">
+          <h2 class="text-4xl font-extrabold lg:text-5xl text-center text-mint-200">
+            {category.title}
+          </h2>
+          <div class="mt-12 gap-12 grid sm:grid-cols-2 lg:grid-cols-3 w-full">
+            {category.data.map((project: Project) => (
+              <ProjectCard {...project} />
+            ))}
+          </div>
+        </div>
+      </section>
+    ))
+  }
+</BaseLayout>
