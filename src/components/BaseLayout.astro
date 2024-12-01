@@ -3,6 +3,7 @@ import Footer from "@/components/Footer.astro";
 import Header from "@/components/Header.astro";
 import "@fontsource-variable/outfit";
 import BaseHead from "@/components/BaseHead.astro";
+import { TailwindSizeIndicator } from "./TailwindSizeIndicator";
 
 interface Props {
   title?: string;
@@ -47,5 +48,6 @@ const formattedTitle =
     </main>
 
     <Footer />
+    {import.meta.env.DEV && <TailwindSizeIndicator client:idle />}
   </body>
 </html>
